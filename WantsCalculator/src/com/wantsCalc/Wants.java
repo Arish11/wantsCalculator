@@ -9,10 +9,13 @@ public class Wants {
 	private LocalDate dateNeeded;
 	
 	public Wants(String desireName, int requiredSum, LocalDate dateNeeded) {
-		super();
 		this.desireName = desireName;
 		this.requiredSum = requiredSum;
 		this.dateNeeded = dateNeeded;
+	}
+	
+	public Wants() {
+		
 	}
 
 	public String getDesireName() {
