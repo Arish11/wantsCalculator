@@ -27,7 +27,7 @@ public class Main {
 			System.out.println("How much will you need to buy "+obj.getDesireName()+" on "+obj.getDateNeeded()+" ?");
 			obj.setRequiredSum(sc.nextInt());
 			wantList.add(obj);
-			System.out.println("Do you wish to add more wants?\n Y - yes \t N - no");
+			System.out.println("Do you wish to add more wants?\nY - yes \t N - no");
 			String choice = sc.next();
 			if(choice.equals("Y")) {
 				addMoreFlag = true;
@@ -35,10 +35,22 @@ public class Main {
 				addMoreFlag = false;
 			}
 		}		
-		monthlyContribution(obj);
+		summationFunc(wantList);
+		sc.close();
 	}
 	
-	public static void monthlyContribution(Wants product ) {
+	public static void summationFunc(List<Wants> wantList) {
+		int totalEveryMonth = 0;
+		System.out.println("My wants are "+wantList);
+		for(Wants want : wantList) {
+			System.out.println("To buy "+want.getDesireName()+" I need "+monthlyContribution(want));
+//			totalEveryMonth += monthlyContribution(want);
+//			System.out.println(totalEveryMonth);
+		}
+		System.out.println("To full fill all my wants I will need "+totalEveryMonth);
+	}
+	
+	public static int monthlyContribution(Wants product ) {
 		int daysRemaining;
 		int monthsToSave;
 		LocalDate today = LocalDate.now();
@@ -46,17 +58,18 @@ public class Main {
 		daysRemaining = calcRemainingDays(today, desiredDate);
 		
 		if(daysRemaining < 0) {
-			System.out.println("This does not look right, you cannot save in the past!");
+			return 0;
+			//System.out.println("This does not look right, you cannot save in the past!");
 		}else if(daysRemaining%30 > 15) {
 			
 			monthsToSave = (int) Math.ceil(daysRemaining/30);
-			System.out.println("To buy "+product.getDesireName()+" in "+monthsToSave+" months you will need to save "
-					+Math.round(product.getRequiredSum()/monthsToSave)+" from now");
+			return Math.round(product.getRequiredSum()/monthsToSave);
+			//System.out.println("To buy "+product.getDesireName()+" in "+monthsToSave+" months you will need to save "+Math.round(product.getRequiredSum()/monthsToSave)+" from now");
 		}else{
 			
 			monthsToSave = (int) Math.floor(daysRemaining/30);
-			System.out.println("To buy "+product.getDesireName()+" in "+monthsToSave+" mpnths you will need to save "
-					+Math.round(product.getRequiredSum()/monthsToSave)+" from now");
+			return Math.round(product.getRequiredSum()/monthsToSave);
+			//System.out.println("To buy "+product.getDesireName()+" in "+monthsToSave+" mpnths you will need to save "+Math.round(product.getRequiredSum()/monthsToSave)+" from now");
 		}
 	}
 	
