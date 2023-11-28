@@ -16,10 +16,10 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		boolean addMoreFlag = true;
 		List<Wants> wantList = new ArrayList<Wants>();
-		Wants obj = new Wants();
 		System.out.println("Let's add some wants!\n");
 		
 		while(addMoreFlag) {
+			Wants obj = new Wants();
 			System.out.println("please add the name of what you want");
 			obj.setDesireName(sc.next());
 			System.out.println("Great! When do you plan to buy "+obj.getDesireName()+" please enter date in dd/mm/yy");
@@ -29,7 +29,7 @@ public class Main {
 			wantList.add(obj);
 			System.out.println("Do you wish to add more wants?\nY - yes \t N - no");
 			String choice = sc.next();
-			if(choice.equals("Y")) {
+			if(choice.equalsIgnoreCase("Y")) {
 				addMoreFlag = true;
 			}else {
 				addMoreFlag = false;
@@ -44,8 +44,7 @@ public class Main {
 		System.out.println("My wants are "+wantList);
 		for(Wants want : wantList) {
 			System.out.println("To buy "+want.getDesireName()+" I need "+monthlyContribution(want));
-//			totalEveryMonth += monthlyContribution(want);
-//			System.out.println(totalEveryMonth);
+			totalEveryMonth += monthlyContribution(want);
 		}
 		System.out.println("To full fill all my wants I will need "+totalEveryMonth);
 	}
